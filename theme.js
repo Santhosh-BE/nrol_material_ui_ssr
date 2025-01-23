@@ -1,115 +1,42 @@
+// src/theme.js
 import { createTheme } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
-    primary: {
-      main: "#3E83F4",
+
+    background: {
+      bg: "#202028", 
+      searchbg: "#414350", 
+      btnprimary: "#30866D", 
+      buttonnormal: '#414350',
+      cardbg: '#414350',
+      placeholder: '#23232B',
+
     },
-    success: {
-      main: "#4caf50",
-      contrastText: "#fff",
+
+    text: {
+      primary: "#202028", 
+      textprimary: "#30866D", 
+      secondary: "#B8B9BE", 
+      white:"#ffffff",
+      black:"#000000" ,
+      grey:"#696b78" ,
+      textsecondary: '#B8B9BE',      
+      titletext: '#24252B',  
+      white60: 'rgba(255, 255, 255, 0.6)', 
+      white80: 'rgba(255, 255, 255, 0.8)',     
     },
-    danger: {
-      main: "#ab003c",
-      contrastText: "#fff",
+
+    sidebar: {
+      sidebar: "#333541", 
     },
+
   },
+
   typography: {
-    fontFamily: "Arial, sans-serif",
+    fontFamily: '"Euclid Circular A", sans-serif',
   },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        body: {
-          fontFamily: "Arial, sans-serif",
-        },
-      },
-    },
-    MuiContainer: {
-      styleOverrides: {
-        root: {
-          padding: "16px",
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          padding: "1rem",
-          borderRadius: "0.5rem",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-          backgroundColor: "hsl(0, 0%, 100%)",
-          height: "100%",
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "1rem",
-          padding: "0.2rem",
-          fontWeight: 500,
-          textTransform: "none",
-        },
-        containedPrimary: {
-          backgroundColor: "#3E83F4",
-          color: "white",
-          "&:hover": {
-            backgroundColor: "#179fff",
-          },
-        },
-        containedSuccess: {
-          backgroundColor: "#4caf50",
-          color: "white",
-          "&:hover": {
-            backgroundColor: "#25D366",
-          },
-        },
-      },
-    },
-    MuiAccordion: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "transparent",
-          boxShadow: "none",
-          "&:before": {
-            display: "none",
-          },
-        },
-      },
-    },
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "white",
-          color: grey[900],
-        },
-      },
-    },
-    MuiTreeView: {
-      styleOverrides: {
-        root: {
-          fontFamily: "Arial, sans-serif",
-        },
-      },
-    },
-    MuiTreeItem: {
-      styleOverrides: {
-        label: {
-          fontFamily: "Arial, sans-serif",
-        },
-      },
-    },
-    MuiChip: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "#edf4fe",
-          borderColor: "#dadada",
-        },
-      },
-    },
-  },
+
 });
 
 export default theme;

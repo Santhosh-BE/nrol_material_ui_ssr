@@ -1,40 +1,34 @@
 // src/App.js
-import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Routers from './src/routes/index';
-import { Provider } from 'react-redux';
-import { CacheProvider } from '@emotion/react';
-import createEmotionCache from './createEmotionCache';
-import createStore from './src/store';
-import theme from './theme';
-import { CssBaseline, GlobalStyles } from '@mui/material';
-const App = ({ preloadedState = {} }) => {
-  const cache = createEmotionCache();
-  const [mode] = React.useState('light');
-  const [showCustomTheme] = React.useState(true);
-  const defaultTheme = createTheme({ palette: { mode } });
+import React from "react";
+import { ThemeProvider, CssBaseline, GlobalStyles } from "@mui/material";
+import Box from "@mui/material/Box";
+import Routers from "./src/routes/index"; 
+import theme from "./theme"; 
+import createEmotionCache from "./createEmotionCache";
+import { CacheProvider } from "@emotion/react";
 
-  const store = createStore(preloadedState);
+const App = () => {
+  const cache = createEmotionCache();
 
   return (
-    <Provider store={store}>
-      <CacheProvider value={cache}>
-        <ThemeProvider theme={showCustomTheme ? theme : defaultTheme}>
-          <CssBaseline />
-          <GlobalStyles
-            styles={{
-              '*': {
-                fontFamily: 'Arial, sans-serif !important',
-              },
-            }}
-          />
-          <Box>
-            <Routers />
-          </Box>
-        </ThemeProvider>
-      </CacheProvider>
-    </Provider>
+    <CacheProvider value={cache}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <GlobalStyles
+          styles={{
+            "*": {
+              margin: 0,
+              padding: 0,
+              boxSizing: "border-box",
+              fontFamily: '"Euclid Circular A", sans-serif !important',
+            },
+          }}
+        />
+        <Box>
+          <Routers />
+        </Box>
+      </ThemeProvider>
+    </CacheProvider>
   );
 };
 
