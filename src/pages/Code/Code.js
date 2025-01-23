@@ -35,6 +35,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import NrolModel from "../../Components/NrolModel";
+import { Editor } from "@monaco-editor/react";
 
 const Code = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -519,7 +520,30 @@ const Code = () => {
                     borderRadius: 2,
                   }}
                 >
-                  <Typography
+                  <Box mt={1} sx={{ height: '75vh' }}>
+                  <Editor height="100%"
+                    theme="vs-dark"
+                    language="java"
+                    value={`public class ReverseArray {  
+    public static void main(String[] args) {  
+        //Initialize array  
+        int [] arr = new int [] {1, 2, 3, 4, 5};  
+        System.out.println("Original array: ");  
+        for (int i = 0; i < arr.length; i++) {  
+            System.out.print(arr[i] + " ");  
+        }  
+        System.out.println();  
+        System.out.println("Array in reverse order: ");  
+        //Loop through the array in reverse order  
+        for (int i = arr.length-1; i >= 0; i--) {  
+            System.out.print(arr[i] + " ");  
+        }  
+    }  
+}`}
+                    onChange={()=>{}}
+                    onMount={()=>{}}/>
+                    </Box>
+                  {/* <Typography
                     component="pre"
                     sx={{
                       fontSize: "0.75rem",
@@ -528,7 +552,7 @@ const Code = () => {
                     }}
                   >
                     {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
-                  </Typography>
+                  </Typography> */}
                 </Box>
 
                 {/* Output Box */}
