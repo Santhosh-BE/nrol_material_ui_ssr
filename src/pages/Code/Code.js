@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Divider, MenuItem, Select, useMediaQuery } from "@mui/material";
+import {
+  DialogContentText,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  useMediaQuery,
+} from "@mui/material";
 
 import {
   Box,
@@ -11,8 +19,6 @@ import {
   AppBar,
   Toolbar,
   TextField,
-  Avatar,
-  Grid,
   Typography,
   Button,
 } from "@mui/material";
@@ -30,12 +36,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import NrolModel from "../../Components/NrolModel";
 
-
 const Code = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("CodePractice");
   const [showOutput, setShowOutput] = useState(false);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalSize, setModalSize] = React.useState('sm');
   const menuItems = [
     { id: "Dashboard", label: "Dashboard", icon: <DashboardIcon /> },
     { id: "Interview", label: "Interview", icon: <WorkIcon /> },
@@ -50,24 +56,27 @@ const Code = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
+  // const toggleMobileMenu = () => {
+  //   setIsMobileMenuOpen(!isMobileMenuOpen);
+  // };
 
   const isTabletOrHigher = useMediaQuery("(min-width:1024px)");
 
-//   const CodeEditorWithOutput = () => {
-  
-    const handleSave = () => {
-      setShowOutput(true);
-    };
-  
-    const handleCloseOutput = () => {
-      setShowOutput(false);
-    };
+  //   const CodeEditorWithOutput = () => {
 
+  const handleSave = () => {
+    setShowOutput(true);
+  };
 
+  const handleCloseOutput = () => {
+    setShowOutput(false);
+  };
+  const handleMaxWidthChange = (event) => {
+    setModalSize(
+      // @ts-expect-error autofill of arbitrary value is not handled.
+      event.target.value,
+    );
+  };
   return (
     <Box display="flex" height="100vh" bgcolor="background.bg">
       {/* Sidebar */}
@@ -346,213 +355,263 @@ const Code = () => {
             p: { xs: 0, sm: 3 },
           }}
         >
-           <Box
-      mt={2}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        gap: { xs: 2, lg: 3 },
-        p: { sm: 3 },
-        borderRadius: 3,
-        backgroundColor: "#141319",
-      }}
-    >
-      {/* Top Section - Dropdown and Buttons */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* Language Dropdown */}
-        <Select
-          defaultValue="javascript"
-          sx={{
-            width: "100%",
-            maxWidth: 200,
-            height: 50, // Fixed height for the dropdown
-            p: 1,
-            backgroundColor: "#141319",
-            color: "white", // Text color inside the dropdown
-            border: "1px solid",
-            borderColor: "#30866D", // Border color
-            borderRadius: 1,
-            fontSize: "0.875rem",
-          }}
-        >
-          <MenuItem value="javascript">JavaScript</MenuItem>
-          <MenuItem value="python">Python</MenuItem>
-          <MenuItem value="java">Java</MenuItem>
-        </Select>
-
-        {/* Buttons Section */}
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <Button
-            variant="outlined"
-            sx={{
-              width: 96,
-              height: 50, // Fixed height for buttons
-              fontSize: "0.875rem",
-              color: "white",
-              borderColor: "#30866D", // Updated border color
-            }}
-            onClick={handleSave}
-          >
-            Save
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              width: 96,
-              height: 50, // Fixed height for buttons
-              fontSize: "0.875rem",
-              backgroundColor: "background.btnprimary",
-            }}
-          >
-            Run
-          </Button>
-          <Button
-            variant="contained"
-            sx={{
-              width: 96,
-              height: 50, // Fixed height for buttons
-              fontSize: "0.875rem",
-              backgroundColor: "background.buttonnormal",
-            }}
-          >
-            Fury AI
-          </Button>
-        </Box>
-        <NrolModel/>
-      </Box>
-
-      {/* Bottom Section - Two Column Layout */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", lg: "row" },
-          flex: 1,
-          gap: { xs: 2, lg: 3 },
-        }}
-      >
-        {/* Left Section - Folder */}
-        <Box
-          sx={{
-            width: { xs: "100%", lg: "20%" },
-            p: 2,
-            borderRadius: 2,
-            backgroundColor: "#414350",
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            position: "sticky",
-            top: 0,
-          }}
-        >
           <Box
+            mt={2}
             sx={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              flexDirection: "column",
+              flex: 1,
+              gap: { xs: 2, lg: 3 },
+              p: { sm: 3 },
+              borderRadius: 3,
+              backgroundColor: "#141319",
             }}
           >
-            <Typography variant="h6" color="white">
-              Folder
-            </Typography>
-            <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-              <img
-                src={
-                  "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466933/file_hdmpc1.svg"
-                }
-                alt="New File"
-                style={{ width: 24, height: 24, cursor: "pointer" }}
-                title="Add File"
-              />
-              <Divider
-                orientation="vertical"
-                flexItem
-                sx={{ borderColor: "gray" }}
-              />
-              <img
-                src={
-                  "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466885/folder_dsk5vq.svg"
-                }
-                alt="New Folder"
-                style={{ width: 24, height: 24, cursor: "pointer" }}
-                title="Add Folder"
-              />
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Right Section - Code Editor and Output */}
-        <Box
-          sx={{
-            flex: 1,
-            p: 2,
-            borderRadius: 2,
-            backgroundColor: "#414350",
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
-        >
-          {/* Code Editor */}
-          <Box
-            sx={{
-              p: 2,
-              overflowY: "auto",
-              maxHeight: { xs: 400, sm: 600 },
-              backgroundColor: "#31333E",
-              borderRadius: 2,
-            }}
-          >
-            <Typography
-              component="pre"
-              sx={{
-                fontSize: "0.75rem",
-                lineHeight: 1.5,
-                color: "rgba(255, 255, 255, 0.7)",
-              }}
-            >
-              {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
-            </Typography>
-          </Box>
-
-          {/* Output Box */}
-          {showOutput && (
+            {/* Top Section - Dropdown and Buttons */}
             <Box
               sx={{
-                p: 2,
-                backgroundColor: "#1E1F29",
-                borderRadius: 2,
-                position: "relative",
-                overflowY: "auto",
-                maxHeight: { xs: 200, sm: 300 },
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
               }}
             >
-              <IconButton
-                onClick={handleCloseOutput}
-                sx={{ position: "absolute", top: 8, right: 8, color: "white" }}
+              {/* Language Dropdown */}
+              <Select
+                defaultValue="javascript"
+                sx={{
+                  width: "100%",
+                  maxWidth: 200,
+                  height: 50, // Fixed height for the dropdown
+                  p: 1,
+                  backgroundColor: "#141319",
+                  color: "white", // Text color inside the dropdown
+                  border: "1px solid",
+                  borderColor: "#30866D", // Border color
+                  borderRadius: 1,
+                  fontSize: "0.875rem",
+                }}
               >
-                <CloseIcon />
-              </IconButton>
-              <Typography color="white" variant="body2">
-                Output Text: Dummy result displayed here.
-              </Typography>
+                <MenuItem value="javascript">JavaScript</MenuItem>
+                <MenuItem value="python">Python</MenuItem>
+                <MenuItem value="java">Java</MenuItem>
+              </Select>
+
+              {/* Buttons Section */}
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    width: 96,
+                    height: 50, // Fixed height for buttons
+                    fontSize: "0.875rem",
+                    color: "white",
+                    borderColor: "#30866D", // Updated border color
+                  }}
+                  onClick={handleSave}
+                >
+                  Save
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    width: 96,
+                    height: 50, // Fixed height for buttons
+                    fontSize: "0.875rem",
+                    backgroundColor: "background.btnprimary",
+                  }}
+                >
+                  Run
+                </Button>
+                <Button
+                  variant="contained"
+                  sx={{
+                    width: 96,
+                    height: 50, // Fixed height for buttons
+                    fontSize: "0.875rem",
+                    backgroundColor: "background.buttonnormal",
+                  }}
+                  onClick={()=>setModalOpen(true)}
+                >
+                  Fury AI
+                </Button>
+              </Box>
             </Box>
-          )}
-        </Box>
-      </Box>
-    </Box>
+
+            {/* Bottom Section - Two Column Layout */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", lg: "row" },
+                flex: 1,
+                gap: { xs: 2, lg: 3 },
+              }}
+            >
+              {/* Left Section - Folder */}
+              <Box
+                sx={{
+                  width: { xs: "100%", lg: "20%" },
+                  p: 2,
+                  borderRadius: 2,
+                  backgroundColor: "#414350",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                  position: "sticky",
+                  top: 0,
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="h6" color="white">
+                    Folder
+                  </Typography>
+                  <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                    <img
+                      src={
+                        "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466933/file_hdmpc1.svg"
+                      }
+                      alt="New File"
+                      style={{ width: 24, height: 24, cursor: "pointer" }}
+                      title="Add File"
+                    />
+                    <Divider
+                      orientation="vertical"
+                      flexItem
+                      sx={{ borderColor: "gray" }}
+                    />
+                    <img
+                      src={
+                        "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466885/folder_dsk5vq.svg"
+                      }
+                      alt="New Folder"
+                      style={{ width: 24, height: 24, cursor: "pointer" }}
+                      title="Add Folder"
+                    />
+                  </Box>
+                </Box>
+              </Box>
+
+              {/* Right Section - Code Editor and Output */}
+              <Box
+                sx={{
+                  flex: 1,
+                  p: 2,
+                  borderRadius: 2,
+                  backgroundColor: "#414350",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                }}
+              >
+                {/* Code Editor */}
+                <Box
+                  sx={{
+                    p: 2,
+                    overflowY: "auto",
+                    maxHeight: { xs: 400, sm: 600 },
+                    backgroundColor: "#31333E",
+                    borderRadius: 2,
+                  }}
+                >
+                  <Typography
+                    component="pre"
+                    sx={{
+                      fontSize: "0.75rem",
+                      lineHeight: 1.5,
+                      color: "rgba(255, 255, 255, 0.7)",
+                    }}
+                  >
+                    {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
+                  </Typography>
+                </Box>
+
+                {/* Output Box */}
+                {showOutput && (
+                  <Box
+                    sx={{
+                      p: 2,
+                      backgroundColor: "#1E1F29",
+                      borderRadius: 2,
+                      position: "relative",
+                      overflowY: "auto",
+                      maxHeight: { xs: 200, sm: 300 },
+                    }}
+                  >
+                    <IconButton
+                      onClick={handleCloseOutput}
+                      sx={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8,
+                        color: "white",
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                    <Typography color="white" variant="body2">
+                      Output Text: Dummy result displayed here.
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+          </Box>
         </Box>
         {/* close content section */}
       </Box>
+      <NrolModel
+                open={modalOpen}
+                setOpen={setModalOpen}
+                title={"Modal Title"}
+                modalSize={modalSize}
+                content={
+                  <>
+                    <DialogContentText>
+                      You can set my maximum width and whether to adapt or not.
+                    </DialogContentText>
+                    <Box
+                      noValidate
+                      component="form"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        m: "auto",
+                        width: "fit-content",
+                      }}
+                    >
+                      <FormControl sx={{ mt: 2, minWidth: 120 }}>
+                        <InputLabel htmlFor="max-width">maxWidth</InputLabel>
+                        <Select
+                          autoFocus
+                          value={modalSize}
+                          onChange={handleMaxWidthChange}
+                          label="maxWidth"
+                          inputProps={{
+                            name: "max-width",
+                            id: "max-width",
+                          }}
+                        >
+                          <MenuItem value={false}>false</MenuItem>
+                          <MenuItem value="xs">xs</MenuItem>
+                          <MenuItem value="sm">sm</MenuItem>
+                          <MenuItem value="md">md</MenuItem>
+                          <MenuItem value="lg">lg</MenuItem>
+                          <MenuItem value="xl">xl</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </>
+                }
+                footer={<Button onClick={()=>setModalOpen(false)}>Close</Button>}
+              />
     </Box>
   );
-// };
-}
+  // };
+};
 export default Code;
