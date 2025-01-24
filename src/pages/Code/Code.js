@@ -3,6 +3,7 @@ import {
   DialogContentText,
   Divider,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -42,7 +43,7 @@ const Code = () => {
   const [selectedMenu, setSelectedMenu] = useState("CodePractice");
   const [showOutput, setShowOutput] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalSize, setModalSize] = React.useState('sm');
+  const [modalSize, setModalSize] = React.useState("sm");
   const menuItems = [
     { id: "Dashboard", label: "Dashboard", icon: <DashboardIcon /> },
     { id: "Interview", label: "Interview", icon: <WorkIcon /> },
@@ -75,7 +76,7 @@ const Code = () => {
   const handleMaxWidthChange = (event) => {
     setModalSize(
       // @ts-expect-error autofill of arbitrary value is not handled.
-      event.target.value,
+      event.target.value
     );
   };
   return (
@@ -182,7 +183,6 @@ const Code = () => {
         </Drawer>
       )}
       {/* clsoe sidebar */}
-
       {/* Main Content */}
       <Box component="main" flexGrow={1} p={3} overflow="auto">
         {/* mobile menu */}
@@ -409,7 +409,6 @@ const Code = () => {
                     color: "white",
                     borderColor: "#30866D", // Updated border color
                   }}
-                  onClick={handleSave}
                 >
                   Save
                 </Button>
@@ -421,6 +420,7 @@ const Code = () => {
                     fontSize: "0.875rem",
                     backgroundColor: "background.btnprimary",
                   }}
+                  onClick={handleSave}
                 >
                   Run
                 </Button>
@@ -432,7 +432,7 @@ const Code = () => {
                     fontSize: "0.875rem",
                     backgroundColor: "background.buttonnormal",
                   }}
-                  onClick={()=>setModalOpen(true)}
+                  onClick={() => setModalOpen(true)}
                 >
                   Fury AI
                 </Button>
@@ -520,7 +520,7 @@ const Code = () => {
                     borderRadius: 2,
                   }}
                 >
-                  <Box mt={1} sx={{ height: '75vh' }}>
+                  {/* <Box mt={1} sx={{ height: '75vh' }}>
                   <Editor height="100%"
                     theme="vs-dark"
                     language="java"
@@ -542,8 +542,8 @@ const Code = () => {
 }`}
                     onChange={()=>{}}
                     onMount={()=>{}}/>
-                    </Box>
-                  {/* <Typography
+                    </Box> */}
+                  <Typography
                     component="pre"
                     sx={{
                       fontSize: "0.75rem",
@@ -552,7 +552,7 @@ const Code = () => {
                     }}
                   >
                     {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
-                  </Typography> */}
+                  </Typography>
                 </Box>
 
                 {/* Output Box */}
@@ -578,8 +578,29 @@ const Code = () => {
                     >
                       <CloseIcon />
                     </IconButton>
-                    <Typography color="white" variant="body2">
-                      Output Text: Dummy result displayed here.
+                    <Typography
+                      component="pre"
+                      color="white"
+                      variant="body2"
+                      sx={{
+                        backgroundColor: "#1e1e1e",
+                        borderRadius: 2,
+                        p: 2,
+                        overflowX: "auto",
+                        fontFamily: "monospace",
+                        fontSize: "0.875rem",
+                      }}
+                    >
+                      {`1. console.log("Starting the process...");
+2. const a = 5;
+3. const b = 10;
+4. const sum = a + b;
+5. console.log("The sum is:", sum);
+6. if (sum > 10) {
+7.   console.log("Sum is greater than 10");
+8. } else {
+9.   console.log("Sum is 10 or less");
+10. console.log("Process completed!");`}
                     </Typography>
                   </Box>
                 )}
@@ -590,50 +611,199 @@ const Code = () => {
         {/* close content section */}
       </Box>
       <NrolModel
-                open={modalOpen}
-                setOpen={setModalOpen}
-                title={"Modal Title"}
-                modalSize={modalSize}
-                content={
-                  <>
-                    <DialogContentText>
-                      You can set my maximum width and whether to adapt or not.
-                    </DialogContentText>
-                    <Box
-                      noValidate
-                      component="form"
+        open={modalOpen}
+        setOpen={setModalOpen}
+        title={"Code Difference"} // Modal title
+        modalSize="xl"
+        content={(() => {
+          // Media queries for responsiveness
+          const isMobile = useMediaQuery("(max-width:600px)");
+          const isTablet = useMediaQuery("(max-width:1024px)");
+
+          // Dynamic modal size
+          const modalWidth = isMobile ? "90vw" : isTablet ? "85vw" : "1320px";
+          const modalHeight = isMobile ? "auto" : isTablet ? "750px" : "860px";
+
+          return (
+            <Box
+              sx={{
+                width: modalWidth,
+                height: modalHeight,
+                maxWidth: "100vw", // Prevent overflow
+                maxHeight: "100vh", // Prevent overflow
+                p: isMobile ? 1 : 2, // Adjust padding for mobile
+                backgroundColor: "white",
+                borderRadius: 2,
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                overflow: "hidden", // No scrollbars
+              }}
+            >
+              {/* Header Section */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: isMobile ? 1 : 2, // Adjust margin for mobile
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "black",
+                    fontSize: isMobile ? "1rem" : "1.25rem",
+                  }}
+                >
+                  Code Difference
+                </Typography>
+
+                {/* Action Buttons */}
+                <Box sx={{ display: "flex", gap: 2 }}>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      color: "black",
+                      borderColor: "#30866D",
+                      "&:hover": { backgroundColor: "#30866D22" },
+                      fontSize: isMobile ? "0.75rem" : "0.875rem", // Adjust button font size
+                      padding: isMobile ? "4px 8px" : "6px 16px",
+                    }}
+                    onClick={() => setModalOpen(false)}
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#30866D",
+                      color: "white",
+                      "&:hover": { backgroundColor: "#256d52" },
+                      fontSize: isMobile ? "0.75rem" : "0.875rem", // Adjust button font size
+                      padding: isMobile ? "4px 8px" : "6px 16px",
+                    }}
+                  >
+                    Replace and Save code
+                  </Button>
+                </Box>
+              </Box>
+
+              {/* Divider */}
+              <Divider
+                sx={{ borderColor: "rgba(0, 0, 0, 0.2)", mb: isMobile ? 1 : 2 }}
+              />
+
+              {/* Responsive Grid Layout */}
+              <Grid container spacing={2} sx={{ height: "100%" }}>
+                {/* Left Section - Your Code */}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx={{
+                    height: isTablet ? "auto" : "100%",
+                    display: "flex", // Ensure full height
+                  }}
+                >
+                  <Box
+                    sx={{
+                      flex: 1, // Allow full width and height
+                      backgroundColor: "#414350",
+                      borderRadius: 2,
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
                       sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        m: "auto",
-                        width: "fit-content",
+                        color: "white",
+                        mb: 1,
+                        fontWeight: "bold",
+                        fontSize: isMobile ? "0.9rem" : "1rem",
                       }}
                     >
-                      <FormControl sx={{ mt: 2, minWidth: 120 }}>
-                        <InputLabel htmlFor="max-width">maxWidth</InputLabel>
-                        <Select
-                          autoFocus
-                          value={modalSize}
-                          onChange={handleMaxWidthChange}
-                          label="maxWidth"
-                          inputProps={{
-                            name: "max-width",
-                            id: "max-width",
-                          }}
-                        >
-                          <MenuItem value={false}>false</MenuItem>
-                          <MenuItem value="xs">xs</MenuItem>
-                          <MenuItem value="sm">sm</MenuItem>
-                          <MenuItem value="md">md</MenuItem>
-                          <MenuItem value="lg">lg</MenuItem>
-                          <MenuItem value="xl">xl</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box>
-                  </>
-                }
-                footer={<Button onClick={()=>setModalOpen(false)}>Close</Button>}
-              />
+                      Your Code
+                    </Typography>
+                    <Typography
+                      component="pre"
+                      sx={{
+                        fontSize: isMobile ? "0.75rem" : "0.875rem",
+                        lineHeight: 1.5,
+                        color: "rgba(255, 255, 255, 0.7)",
+                        fontFamily: "monospace",
+                        whiteSpace: "pre-wrap",
+                        flex: 1, // Fill available height
+                      }}
+                    >
+                      {`1. console.log("Your Code Example");
+2. function yourFunction() {
+3.   console.log("Hello, world!");
+4. }`}
+                    </Typography>
+                  </Box>
+                </Grid>
+
+                {/* Right Section - Fury AI Code */}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx={{
+                    height: isTablet ? "auto" : "100%",
+                    display: "flex", // Ensure full height
+                  }}
+                >
+                  <Box
+                    sx={{
+                      flex: 1, // Allow full width and height
+                      backgroundColor: "rgba(203, 223, 253, 0.5)",
+                      borderRadius: 2,
+                      p: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        color: "black",
+                        mb: 1,
+                        fontWeight: "bold",
+                        fontSize: isMobile ? "0.9rem" : "1rem",
+                      }}
+                    >
+                      Fury AI Code
+                    </Typography>
+                    <Typography
+                      component="pre"
+                      sx={{
+                        fontSize: isMobile ? "0.75rem" : "0.875rem",
+                        lineHeight: 1.5,
+                        color: "rgba(0, 0, 0, 0.7)",
+                        fontFamily: "monospace",
+                        whiteSpace: "pre-wrap",
+                        flex: 1, // Fill available height
+                      }}
+                    >
+                      {`1. console.log("Fury AI Code Example");
+2. function aiFunction() {
+3.   console.log("This is AI generated!");
+4. }`}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          );
+        })()}
+        footer={null}
+      />
+      ;
     </Box>
   );
   // };

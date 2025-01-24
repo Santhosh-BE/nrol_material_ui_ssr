@@ -19,7 +19,6 @@ export default function NrolModel({
   return (
     <React.Fragment>
       <Dialog maxWidth={modalSize} open={open} onClose={handleClose}>
-        <DialogTitle>{title}</DialogTitle>
         <DialogContent>{content}</DialogContent>
         <DialogActions>
           {footer}
