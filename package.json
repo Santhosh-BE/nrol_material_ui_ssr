@@ -39,7 +39,7 @@
   },
   "scripts": {
     "start": "npm-run-all -p build serve",
-    "build": "webpack -w",
+    "build": "webpack",
     "serve": "nodemon --ignore ./build --exec babel-node -- server.js",
     "production": "cross-env NODE_ENV=production npm start",
     "post-update": "echo \"codesandbox preview only, need an update\" && pnpm update --latest",
