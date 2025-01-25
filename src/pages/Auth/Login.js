@@ -9,8 +9,10 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn"; // Icon for LinkedIn
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
     <Box
       display="flex"
@@ -191,6 +193,7 @@ const Login = () => {
                 bgcolor: "background.btnprimary", 
               },
             }}
+            onClick={() => navigate("/dashboard")}
           >
             Login using LinkedIn
           </Button>
