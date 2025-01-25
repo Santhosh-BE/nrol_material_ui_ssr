@@ -1,5 +1,8 @@
 import { resolve as _resolve } from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = _resolve(__filename, '..');
 export const entry = './client.js';
 export const mode = 'development';
 export const output = {
