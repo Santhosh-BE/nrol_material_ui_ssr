@@ -17,10 +17,8 @@ import NrolModel from "../../Components/NrolModel";
 // import { Editor } from "@monaco-editor/react";
 
 const Code = () => {
-
   const [showOutput, setShowOutput] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-
 
   const handleSave = () => {
     setShowOutput(true);
