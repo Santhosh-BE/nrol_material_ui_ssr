@@ -44,7 +44,7 @@ const VideoCallPage = () => {
     <Box
       sx={{
         width: "100%",
-        height: "96%",
+        height: "97%",
         display: "flex",
         flexDirection: "column",
         margin: "20px 32px 20px 32px",
@@ -92,7 +92,7 @@ const VideoCallPage = () => {
         </Toolbar>
       </AppBar>
       {/* Main Content */}
-      <Grid container sx={{ flex: 1, marginTop: "24px", overflow: "hidden" }}>
+     { !presenting&&<Grid container sx={{ flex: 1, marginTop: "12px", overflow: "hidden" }}>
         <Grid
           item
           xs={12}
@@ -253,7 +253,7 @@ const VideoCallPage = () => {
             </Button>
           </Box>
         </Grid>
-      </Grid>
+      </Grid>}
 
       {/*prsenting icon cocde  */}
  {presenting&&<Grid
@@ -264,7 +264,7 @@ const VideoCallPage = () => {
         marginTop: "1px",
         overflow: "visible",
         display: "flex",
-        flexWrap: "nowrap", // Prevents the right box from moving below
+        flexWrap: "nowrap", 
       }}
     >
       {/* Left: Video Section */}

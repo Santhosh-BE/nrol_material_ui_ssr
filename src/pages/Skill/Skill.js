@@ -183,7 +183,7 @@ const Skill = () => {
                     mb: isMobile ? "12px" : "4px", // Margin top for mobile
                   }}
                 >
-                  Communication Assessment
+                  Javascript Assessment
                 </Typography>
                 <Typography
                   variant="body2"
