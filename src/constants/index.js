@@ -56,3 +56,18 @@ export const SidebarOptions = [
   },
   { path: "profile", id: "Profile", label: "Profile", icon: <PersonIcon /> },
 ];
+
+export const Path = {
+  DASHBOARD: "/dashboard",
+  CODE_PRACTICE: "/codePractice",
+  SKILL_TEST: "/skilltest",
+  COMMUNICATION: "/communication",
+  INTERVIEW: "/interview",
+  VOICECHAT:"/voicechat",
+  SKILLVIEW:"/skillview",
+  SKILLQUESTION:"/skillquestion",
+  ASSESSMENT: "/assessment",
+  ASSESSMENTCALL: "/assessmentcall",
+  SETTINGS: "/settings",
+  PROFILE: "/profile",
+};

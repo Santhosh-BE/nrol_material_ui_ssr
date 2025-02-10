@@ -12,6 +12,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
+import CloseIcon from '@mui/icons-material/CloseRounded';
 import {
   Call,
   CallEnd,
@@ -21,9 +22,13 @@ import {
   MoreHoriz,
   PresentToAll,
 } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { Path } from "../../constants";
 
 const VideoCallPage = () => {
+  const navigate = useNavigate();
   const [showOutput, setShowOutput] = useState(false);
+  const [presenting, setPresenting] = useState(false);
 
   const handleRun = () => {
     setShowOutput(true);
@@ -87,7 +92,7 @@ const VideoCallPage = () => {
         </Toolbar>
       </AppBar>
       {/* Main Content */}
-      {/* <Grid container sx={{ flex: 1, marginTop: "24px", overflow: "hidden" }}>
+      <Grid container sx={{ flex: 1, marginTop: "24px", overflow: "hidden" }}>
         <Grid
           item
           xs={12}
@@ -248,10 +253,10 @@ const VideoCallPage = () => {
             </Button>
           </Box>
         </Grid>
-      </Grid> */}
+      </Grid>
 
       {/*prsenting icon cocde  */}
- <Grid
+ {presenting&&<Grid
       container
       spacing={2}
       sx={{
@@ -508,7 +513,7 @@ const VideoCallPage = () => {
   </Box>
 </Box>
       </Grid>
-    </Grid>
+    </Grid>}
     {/* clsoe */}
     
       {/* Bottom Bar */}
@@ -537,6 +542,7 @@ const VideoCallPage = () => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              onClick={()=>index===2&&setPresenting(true)}
             >
               <IconButton sx={{ color: "white" }}>
                 <Icon />
@@ -556,6 +562,7 @@ const VideoCallPage = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
+          onClick={()=>navigate(Path.ASSESSMENT)}
         >
           <IconButton sx={{ color: "white" }}>
             <CallEnd />

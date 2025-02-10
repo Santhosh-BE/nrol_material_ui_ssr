@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn"; // Icon for LinkedIn
 import { useNavigate } from "react-router-dom";
+import { Path } from "../../constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -195,7 +196,7 @@ const Login = () => {
                 bgcolor: "background.btnprimary", 
               },
             }}
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate(Path.DASHBOARD)}
           >
             Login using LinkedIn
           </Button>
