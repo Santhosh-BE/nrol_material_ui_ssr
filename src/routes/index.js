@@ -8,6 +8,10 @@ import Layout from "../pages/Layout";
 import WorkInProgress from "../pages/WorkInProgress";
 import Communication from "../pages/Communication/Communication";
 import VoiceChat from "../pages/Voicechat/Voicechat";
+import Skillview from "../pages/SkillView/skillview";
+import Skillquestion from "../pages/Skillquestion/skillquestion";
+import Assessment from "../pages/Assessment/assessment";
+import Assesmentcall from "../pages/Assesmentcall/assesmentcall";
 const Routers = () => {
   return (
     <Routes>
@@ -18,6 +22,10 @@ const Routers = () => {
         <Route path={"/skilltest"} element={<Skill />} />
         <Route path={"/communication"} element={<Communication />} />
         <Route path={"/voicechat"} element={<VoiceChat />} />
+        <Route path={"/skillview"} element={<Skillview />} />
+        <Route path={"/skillquestion"} element={<Skillquestion />} />
+        <Route path={"/assessment"} element={<Assessment />} />
+        <Route path={"/assesmentcall"} element={<Assesmentcall />} />
         <Route path={"*"} element={<WorkInProgress />} />
       </Route>
     </Routes>

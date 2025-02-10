@@ -7,6 +7,8 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import ChatIcon from "@mui/icons-material/Chat";
 import SettingsIcon from "@mui/icons-material/Settings";
 import PersonIcon from "@mui/icons-material/Person";
+import { Assignment } from "@mui/icons-material";
+
 export const SidebarOptions = [
   {
     path: "dashboard",
@@ -26,6 +28,14 @@ export const SidebarOptions = [
     label: "Code Practice",
     icon: <CodeIcon />,
   },
+
+  {
+    path: "assessment",
+    id: "Assessment",
+    label: "Assessment",
+    icon: <Assignment />,
+  },
+
   {
     path: "skilltest",
     id: "Skilltest",

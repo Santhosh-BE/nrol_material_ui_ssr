@@ -20,13 +20,15 @@ const Code = () => {
   const [showOutput, setShowOutput] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleSave = () => {
+  const handleRun = () => {
     setShowOutput(true);
   };
 
   const handleCloseOutput = () => {
     setShowOutput(false);
   };
+
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <>
@@ -198,262 +200,262 @@ const Code = () => {
 
         {/* Content Section */}
         <Box
+      sx={{
+        p: { xs: 0, sm: 3 },
+      }}
+    >
+      <Box
+        mt={2}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          flex: 1,
+          gap: { xs: 2, lg: 3 },
+          p: { sm: 3 },
+          borderRadius: 3,
+          backgroundColor: "#141319",
+        }}
+      >
+        {/* Top Section - Dropdown and Buttons */}
+        <Box
           sx={{
-            p: { xs: 0, sm: 3 },
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
           }}
         >
-          <Box
-            mt={2}
+          {/* Language Dropdown */}
+          <Select
+            defaultValue="javascript"
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              flex: 1,
-              gap: { xs: 2, lg: 3 },
-              p: { sm: 3 },
-              borderRadius: 3,
+              width: "100%",
+              maxWidth: 200,
+              height: 50,
+              p: 1,
               backgroundColor: "#141319",
+              color: "white",
+              border: "1px solid",
+              borderColor: "#30866D",
+              borderRadius: 1,
+              fontSize: "0.875rem",
             }}
           >
-            {/* Top Section - Dropdown and Buttons */}
+            <MenuItem value="javascript">JavaScript</MenuItem>
+            <MenuItem value="python">Python</MenuItem>
+            <MenuItem value="java">Java</MenuItem>
+          </Select>
+
+          {/* Buttons Section */}
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Button
+              variant="outlined"
+              sx={{
+                width: 96,
+                height: 50,
+                fontSize: "0.875rem",
+                color: "white",
+                borderColor: "#30866D",
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                width: 96,
+                height: 50,
+                fontSize: "0.875rem",
+                backgroundColor: "background.btnprimary",
+              }}
+              onClick={handleRun}
+            >
+              Run
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                width: 96,
+                height: 50,
+                fontSize: "0.875rem",
+                backgroundColor: "background.buttonnormal",
+              }}
+              onClick={() => alert("Fury AI Clicked")}
+            >
+              Fury AI
+            </Button>
+          </Box>
+        </Box>
+
+        {/* Bottom Section - Two Column Layout */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            flex: 1,
+            gap: { xs: 2, lg: 3 },
+          }}
+        >
+          {/* Left Section - Folder */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: isCollapsed ? "60px" : "20%" },
+              p: 2,
+              borderRadius: 2,
+              backgroundColor: "#414350",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              position: "sticky",
+              top: 0,
+              alignItems: isCollapsed ? "center" : "flex-start",
+              transition: "width 0.3s ease-in-out",
+            }}
+          >
+            {/* Folder Title & Icons */}
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-end",
                 justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
               }}
             >
-              {/* Language Dropdown */}
-              <Select
-                defaultValue="javascript"
+              <Typography
+                variant="h6"
+                color="white"
                 sx={{
-                  width: "100%",
-                  maxWidth: 200,
-                  height: 50, // Fixed height for the dropdown
-                  p: 1,
-                  backgroundColor: "#141319",
-                  color: "white", // Text color inside the dropdown
-                  border: "1px solid",
-                  borderColor: "#30866D", // Border color
-                  borderRadius: 1,
-                  fontSize: "0.875rem",
+                  maxWidth: isCollapsed ? "40px" : "100%",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
                 }}
               >
-                <MenuItem value="javascript">JavaScript</MenuItem>
-                <MenuItem value="python">Python</MenuItem>
-                <MenuItem value="java">Java</MenuItem>
-              </Select>
+                Folder
+              </Typography>
 
-              {/* Buttons Section */}
-              <Box sx={{ display: "flex", gap: 2 }}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    width: 96,
-                    height: 50, // Fixed height for buttons
-                    fontSize: "0.875rem",
-                    color: "white",
-                    borderColor: "#30866D", // Updated border color
-                  }}
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: 96,
-                    height: 50, // Fixed height for buttons
-                    fontSize: "0.875rem",
-                    backgroundColor: "background.btnprimary",
-                  }}
-                  onClick={handleSave}
-                >
-                  Run
-                </Button>
-                <Button
-                  variant="contained"
-                  sx={{
-                    width: 96,
-                    height: 50, // Fixed height for buttons
-                    fontSize: "0.875rem",
-                    backgroundColor: "background.buttonnormal",
-                  }}
-                  onClick={() => setModalOpen(true)}
-                >
-                  Fury AI
-                </Button>
-              </Box>
+              {/* Icons (Hidden when Collapsed) */}
+              {!isCollapsed && (
+                <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                  <img
+                    src="https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466933/file_hdmpc1.svg"
+                    alt="New File"
+                    style={{ width: 24, height: 24, cursor: "pointer" }}
+                    title="Add File"
+                  />
+                  <Divider
+                    orientation="vertical"
+                    flexItem
+                    sx={{ borderColor: "gray" }}
+                  />
+                  <img
+                    src="https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466885/folder_dsk5vq.svg"
+                    alt="New Folder"
+                    style={{ width: 24, height: 24, cursor: "pointer" }}
+                    title="Add Folder"
+                  />
+                </Box>
+              )}
             </Box>
 
-            {/* Bottom Section - Two Column Layout */}
+            {/* Toggle Button (Centered at Bottom) */}
             <Box
               sx={{
+                mt: "auto",
+                width: "100%",
                 display: "flex",
-                flexDirection: { xs: "column", lg: "row" },
-                flex: 1,
-                gap: { xs: 2, lg: 3 },
+                justifyContent: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              <Typography sx={{ fontSize: "14px", color: "gray" }}>
+                {isCollapsed ? "Open" : "Close"}
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Right Section - Code Editor and Output Side-by-Side */}
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              flexDirection: { xs: "column", lg: "row" }, // Vertical on small screens
+              gap: 2,
+            }}
+          >
+            {/* Code Editor */}
+            <Box
+              sx={{
+                flex: 2,
+                p: 2,
+                overflowY: "auto",
+                maxHeight: { xs: 400, sm: 600 },
+                backgroundColor: "#31333E",
+                borderRadius: 2,
               }}
             >
-              {/* Left Section - Folder */}
-              <Box
+              <Typography
+                component="pre"
                 sx={{
-                  width: { xs: "100%", lg: "20%" },
-                  p: 2,
-                  borderRadius: 2,
-                  backgroundColor: "#414350",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
-                  position: "sticky",
-                  top: 0,
+                  fontSize: "0.75rem",
+                  lineHeight: 1.5,
+                  color: "rgba(255, 255, 255, 0.7)",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography variant="h6" color="white">
-                    Folder
-                  </Typography>
-                  <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                    <img
-                      src={
-                        "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466933/file_hdmpc1.svg"
-                      }
-                      alt="New File"
-                      style={{ width: 24, height: 24, cursor: "pointer" }}
-                      title="Add File"
-                    />
-                    <Divider
-                      orientation="vertical"
-                      flexItem
-                      sx={{ borderColor: "gray" }}
-                    />
-                    <img
-                      src={
-                        "https://res.cloudinary.com/dq0sgsxtz/image/upload/v1737466885/folder_dsk5vq.svg"
-                      }
-                      alt="New Folder"
-                      style={{ width: 24, height: 24, cursor: "pointer" }}
-                      title="Add Folder"
-                    />
-                  </Box>
-                </Box>
-              </Box>
+                {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
+              </Typography>
+            </Box>
 
-              {/* Right Section - Code Editor and Output */}
+            {/* Output Box (Appears to the Right) */}
+            {showOutput && (
               <Box
                 sx={{
                   flex: 1,
                   p: 2,
+                  backgroundColor: "#1E1F29",
                   borderRadius: 2,
-                  backgroundColor: "#414350",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
+                  position: "relative",
+                  overflowY: "auto",
+                  maxHeight: { xs: 200, sm: 300 },
                 }}
               >
-                {/* Code Editor */}
-                <Box
+                <IconButton
+                  onClick={handleCloseOutput}
                   sx={{
-                    p: 2,
-                    overflowY: "auto",
-                    maxHeight: { xs: 400, sm: 600 },
-                    backgroundColor: "#31333E",
-                    borderRadius: 2,
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    color: "white",
                   }}
                 >
-                  {/* <Box mt={1} sx={{ height: '75vh' }}>
-                  <Editor height="100%"
-                    theme="vs-dark"
-                    language="java"
-                    value={`public class ReverseArray {  
-    public static void main(String[] args) {  
-        //Initialize array  
-        int [] arr = new int [] {1, 2, 3, 4, 5};  
-        System.out.println("Original array: ");  
-        for (int i = 0; i < arr.length; i++) {  
-            System.out.print(arr[i] + " ");  
-        }  
-        System.out.println();  
-        System.out.println("Array in reverse order: ");  
-        //Loop through the array in reverse order  
-        for (int i = arr.length-1; i >= 0; i--) {  
-            System.out.print(arr[i] + " ");  
-        }  
-    }  
-}`}
-                    onChange={()=>{}}
-                    onMount={()=>{}}/>
-                    </Box> */}
-                  <Typography
-                    component="pre"
-                    sx={{
-                      fontSize: "0.75rem",
-                      lineHeight: 1.5,
-                      color: "rgba(255, 255, 255, 0.7)",
-                    }}
-                  >
-                    {`01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n32\n33\n34`}
-                  </Typography>
-                </Box>
-
-                {/* Output Box */}
-                {showOutput && (
-                  <Box
-                    sx={{
-                      p: 2,
-                      backgroundColor: "#1E1F29",
-                      borderRadius: 2,
-                      position: "relative",
-                      overflowY: "auto",
-                      maxHeight: { xs: 200, sm: 300 },
-                    }}
-                  >
-                    <IconButton
-                      onClick={handleCloseOutput}
-                      sx={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        color: "white",
-                      }}
-                    >
-                      <CloseIcon />
-                    </IconButton>
-                    <Typography
-                      component="pre"
-                      color="white"
-                      variant="body2"
-                      sx={{
-                        backgroundColor: "#1e1e1e",
-                        borderRadius: 2,
-                        p: 2,
-                        overflowX: "auto",
-                        fontFamily: "monospace",
-                        fontSize: "0.875rem",
-                      }}
-                    >
-                      {`1. console.log("Starting the process...");
-2. const a = 5;
-3. const b = 10;
-4. const sum = a + b;
-5. console.log("The sum is:", sum);
-6. if (sum > 10) {
-7.   console.log("Sum is greater than 10");
-8. } else {
-9.   console.log("Sum is 10 or less");
-10. console.log("Process completed!");`}
-                    </Typography>
-                  </Box>
-                )}
+                  <CloseIcon />
+                </IconButton>
+                <Typography
+                  component="pre"
+                  color="white"
+                  variant="body2"
+                  sx={{
+                    backgroundColor: "#1e1e1e",
+                    borderRadius: 2,
+                    p: 2,
+                    overflowX: "auto",
+                    fontFamily: "monospace",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {`Console Output:
+1. Process started...
+2. Sum is 15
+3. Condition met, executing...
+4. Process completed!`}
+                </Typography>
               </Box>
-            </Box>
+            )}
           </Box>
         </Box>
+      </Box>
+    </Box>
         {/* close content section */}
       </Box>
       <NrolModel
